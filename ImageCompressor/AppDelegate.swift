@@ -2,8 +2,6 @@
 //  AppDelegate.swift
 //  ImageCompressor
 //
-//  Created by Rezaul Hoque on 1/2/22.
-//
 
 import UIKit
 

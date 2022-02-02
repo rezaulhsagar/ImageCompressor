@@ -13,6 +13,8 @@
 		915F73B927A8EDB000C078A1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 915F73B727A8EDB000C078A1 /* Main.storyboard */; };
 		915F73BB27A8EDB100C078A1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 915F73BA27A8EDB100C078A1 /* Assets.xcassets */; };
 		915F73BE27A8EDB100C078A1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 915F73BC27A8EDB100C078A1 /* LaunchScreen.storyboard */; };
+		915F73C627A8EE0600C078A1 /* ImageCompressor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F73C527A8EE0600C078A1 /* ImageCompressor.swift */; };
+		915F73CF27A8FCD100C078A1 /* CompressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915F73CE27A8FCD100C078A1 /* CompressViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		915F73BA27A8EDB100C078A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		915F73BD27A8EDB100C078A1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		915F73BF27A8EDB100C078A1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		915F73C527A8EE0600C078A1 /* ImageCompressor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCompressor.swift; sourceTree = "<group>"; };
+		915F73CE27A8FCD100C078A1 /* CompressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompressViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +62,23 @@
 			children = (
 				915F73B127A8EDB000C078A1 /* AppDelegate.swift */,
 				915F73B327A8EDB000C078A1 /* SceneDelegate.swift */,
-				915F73B527A8EDB000C078A1 /* ViewController.swift */,
+				915F73D027A90F4100C078A1 /* src */,
 				915F73B727A8EDB000C078A1 /* Main.storyboard */,
 				915F73BA27A8EDB100C078A1 /* Assets.xcassets */,
 				915F73BC27A8EDB100C078A1 /* LaunchScreen.storyboard */,
 				915F73BF27A8EDB100C078A1 /* Info.plist */,
 			);
 			path = ImageCompressor;
+			sourceTree = "<group>";
+		};
+		915F73D027A90F4100C078A1 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				915F73C527A8EE0600C078A1 /* ImageCompressor.swift */,
+				915F73CE27A8FCD100C078A1 /* CompressViewController.swift */,
+				915F73B527A8EDB000C078A1 /* ViewController.swift */,
+			);
+			path = src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,8 +152,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				915F73C627A8EE0600C078A1 /* ImageCompressor.swift in Sources */,
 				915F73B627A8EDB000C078A1 /* ViewController.swift in Sources */,
 				915F73B227A8EDB000C078A1 /* AppDelegate.swift in Sources */,
+				915F73CF27A8FCD100C078A1 /* CompressViewController.swift in Sources */,
 				915F73B427A8EDB000C078A1 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -287,8 +303,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7W6PN8LZUG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageCompressor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -296,13 +314,15 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rezaul.ImageCompressor;
+				PRODUCT_BUNDLE_IDENTIFIER = xcode.project.imagecom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = XcodeProjectWildcard;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -314,8 +334,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7W6PN8LZUG;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = ImageCompressor/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -323,13 +345,15 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.rezaul.ImageCompressor;
+				PRODUCT_BUNDLE_IDENTIFIER = xcode.project.imagecom;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = XcodeProjectWildcard;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
