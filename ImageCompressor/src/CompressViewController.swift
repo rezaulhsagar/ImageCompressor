@@ -27,13 +27,11 @@ class CompressViewController: UIViewController {
         resizedImage = image
         
         if shouldProcessImage(size: image.size) {
-        
-            let startTime = CFAbsoluteTimeGetCurrent()
             
             let previousDimension = CGSize(width: image.size.width, height: image.size.height)
             let imgData = NSData(data: image.jpegData(compressionQuality: 1.0)!)
             var imageSizeKB: Int = Int(Double(imgData.count) / 1000.0)
-            
+            let startTime = CFAbsoluteTimeGetCurrent()
             if imageSizeKB > 1024 {
                 resizedImage = ImageCompressor.getCompressedImage(image: image, x: 2160)
                 imageView.image = resizedImage
