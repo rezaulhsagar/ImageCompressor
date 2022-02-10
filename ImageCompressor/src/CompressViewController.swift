@@ -31,7 +31,7 @@ class CompressViewController: UIViewController {
             let startTime = CFAbsoluteTimeGetCurrent()
             
             let previousDimension = CGSize(width: image.size.width, height: image.size.height)
-            let imgData = NSData(data: image.jpegData(compressionQuality: 0.9)!)
+            let imgData = NSData(data: image.jpegData(compressionQuality: 1.0)!)
             var imageSizeKB: Int = Int(Double(imgData.count) / 1000.0)
             
             if imageSizeKB > 1024 {
@@ -39,7 +39,7 @@ class CompressViewController: UIViewController {
                 imageView.image = resizedImage
                 
                 var newDimension = CGSize(width: resizedImage.size.width, height: resizedImage.size.height)
-                var imgData2 = NSData(data: resizedImage.jpegData(compressionQuality: 0.9)!)
+                var imgData2 = NSData(data: resizedImage.jpegData(compressionQuality: 0.5)!)
                 var imageSizeKB2: Int = Int(Double(imgData2.count) / 1000.0)
                 
                 let endTime = CFAbsoluteTimeGetCurrent()
