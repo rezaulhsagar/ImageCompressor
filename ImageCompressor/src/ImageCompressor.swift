@@ -34,13 +34,13 @@ class ImageCompressor {
         
     }
     
-    class func compressImage(image: UIImage, height: CGFloat) -> UIImage {
-        
-        let resizedImage = image.aspectFittedToHeight(height)
-        resizedImage.jpegData(compressionQuality: 0.2) // Add this line
-        
-        return resizedImage
-    }
+//    class func compressImage(image: UIImage, height: CGFloat) -> UIImage {
+//
+//        let resizedImage = image.aspectFittedToHeight(height)
+//        resizedImage.jpegData(compressionQuality: 0.2) // Add this line
+//
+//        return resizedImage
+//    }
 }
 
 extension UIImage {
