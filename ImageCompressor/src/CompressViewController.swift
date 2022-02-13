@@ -9,6 +9,7 @@ class CompressViewController: UIViewController {
     
     var image: UIImage!
     var resizedImage: UIImage!
+    var compressedImage: UIImage!
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var lblDimension: UILabel!
     @IBOutlet weak var lblSize: UILabel!
@@ -25,49 +26,54 @@ class CompressViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         resizedImage = image
+        compressedImage = image
+        
+        // for comparison, getting previous data without compression. e.g.: quality is set to 1.0
+        let previousDimension = CGSize(width: image.size.width, height: image.size.height)
+        let imgData = NSData(data: image.jpegData(compressionQuality: 1.0)!)
+        let imageSizeKB: Int = Int(Double(imgData.count) / 1024.0)
         
         if checkSizeGreaterThan2160(size: image.size) { // At least one side is greater than 2160
             
             let startTime = CFAbsoluteTimeGetCurrent()
             
-            // for comparison, getting previous data without compression. e.g.: quality is set to 1.0
-            let previousDimension = CGSize(width: image.size.width, height: image.size.height)
-            let imgData = NSData(data: image.jpegData(compressionQuality: 1.0)!)
-            let imageSizeKB: Int = Int(Double(imgData.count) / 1024.0)
-            
             resizedImage = image.resize(minLength: 2160) // here dimension requirements are met
             let resizedImgData = NSData(data: resizedImage.jpegData(compressionQuality: 1.0)!)
             let resizedImageSizeKB: Int = Int(Double(resizedImgData.count) / 1024.0)
             
-            if resizedImageSizeKB > 1024 { // we are processing with larger than 1mb images
-                let compressedImage = ImageCompressor.getCompressedImage(image: image, x: 2160)
+            compressedImage = ImageCompressor.getCompressedImage(image: resizedImage, x: 2160)
+            let newDimension = CGSize(width: compressedImage.size.width, height: compressedImage.size.height)
+            let compressedImgData = NSData(data: compressedImage.jpegData(compressionQuality: 0.9)!)
+            let compressedImageSizeKB: Int = Int(Double(compressedImgData.count) / 1024.0)
                 
-                let newDimension = CGSize(width: compressedImage.size.width, height: compressedImage.size.height)
-                let compressedImgData = NSData(data: compressedImage.jpegData(compressionQuality: 0.9)!)
-                let compressedImageSizeKB: Int = Int(Double(compressedImgData.count) / 1024.0)
+            let endTime = CFAbsoluteTimeGetCurrent()
+            let executionTime = round((endTime - startTime) * 100) / 100.0
                 
-                let endTime = CFAbsoluteTimeGetCurrent()
-                let executionTime = round((endTime - startTime) * 100) / 100.0
+            // Label info update
+            self.lblDimension.text = "(\(Int(previousDimension.width)), \(Int(previousDimension.height))) -> (\(Int(newDimension.width)), \(Int(newDimension.height)))"
+            self.lblSize.text = "\(imageSizeKB) KB -> \(compressedImageSizeKB) KB"
+            self.lblTime.text = "Execution time: \(executionTime) s"
+            imageView.image = compressedImage
                 
-                // Label info update
-                self.lblDimension.text = "(\(Int(previousDimension.width)), \(Int(previousDimension.height))) -> (\(Int(newDimension.width)), \(Int(newDimension.height)))"
-                // checking file size, update with smaller sized image
-                if compressedImageSizeKB < resizedImageSizeKB {
-                    self.lblSize.text = "\(imageSizeKB) KB -> \(compressedImageSizeKB) KB"
-                    imageView.image = compressedImage
-                } else {
-                    self.lblSize.text = "\(imageSizeKB) KB -> \(resizedImageSizeKB) KB"
-                    imageView.image = resizedImage
-                }
-                self.lblTime.text = "Execution time: \(executionTime) s"
+        } else { // Both sides are less than 2160
+            
+            let startTime = CFAbsoluteTimeGetCurrent()
+            
+            compressedImage = ImageCompressor.getCompressedImage(image: image, x: min(image.size.width, image.size.height))
+            let newDimension = CGSize(width: compressedImage.size.width, height: compressedImage.size.height)
+            let compressedImgData = NSData(data: compressedImage.jpegData(compressionQuality: 0.9)!)
+            let compressedImageSizeKB: Int = Int(Double(compressedImgData.count) / 1024.0)
                 
-            } else {
-                imageView.image = resizedImage
-                self.lblTime.text = "Execution Skipped. File less than 1 MB"
-            }
-        } else {
-            imageView.image = image
-            self.lblTime.text = "Execution skipped. Image less than 2160 px"
+            let endTime = CFAbsoluteTimeGetCurrent()
+            let executionTime = round((endTime - startTime) * 100) / 100.0
+                
+            // Label info update
+            self.lblDimension.text = "(\(Int(previousDimension.width)), \(Int(previousDimension.height))) -> (\(Int(newDimension.width)), \(Int(newDimension.height)))"
+            // checking file size, update with smaller sized image
+            self.lblSize.text = "\(imageSizeKB) KB -> \(compressedImageSizeKB) KB"
+            self.lblTime.text = "Execution time: \(executionTime) s"
+            
+            self.imageView.image = compressedImage
         }
         
     }
