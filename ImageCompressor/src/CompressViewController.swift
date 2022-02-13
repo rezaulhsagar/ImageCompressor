@@ -51,6 +51,7 @@ class CompressViewController: UIViewController {
                 
                 // Label info update
                 self.lblDimension.text = "(\(Int(previousDimension.width)), \(Int(previousDimension.height))) -> (\(Int(newDimension.width)), \(Int(newDimension.height)))"
+                // checking file size, update with smaller sized image
                 if compressedImageSizeKB < resizedImageSizeKB {
                     self.lblSize.text = "\(imageSizeKB) KB -> \(compressedImageSizeKB) KB"
                     imageView.image = compressedImage
