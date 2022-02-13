@@ -34,16 +34,31 @@ class ImageCompressor {
         
     }
     
-    class func compressImage(image: UIImage, height: CGFloat) -> UIImage {
-        
-        let resizedImage = image.aspectFittedToHeight(height)
-        resizedImage.jpegData(compressionQuality: 0.2) // Add this line
-        
-        return resizedImage
-    }
 }
 
 extension UIImage {
+    
+    func resize(minLength: CGFloat) -> UIImage? {
+        let currentWidth = self.size.width
+        let currentHeight = self.size.height
+        
+        var newWidth: CGFloat = 0
+        var newHeight: CGFloat = 0
+        
+        if max(currentWidth, currentHeight) > minLength {
+            if currentWidth > currentHeight {
+                newWidth = minLength
+                let ratio = newWidth / currentWidth
+                newHeight = currentHeight * ratio
+            } else {
+                newHeight = minLength
+                let ratio = newHeight / currentHeight
+                newWidth = currentWidth * ratio
+            }
+        }
+        
+        return self.resize(size: CGSize(width: newWidth, height: newHeight))!
+    }
     
     func resize(size: CGSize) -> UIImage? {
         
