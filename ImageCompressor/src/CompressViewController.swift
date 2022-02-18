@@ -58,22 +58,31 @@ class CompressViewController: UIViewController {
         } else { // Both sides are less than 2160
             
             let startTime = CFAbsoluteTimeGetCurrent()
-            
-            compressedImage = ImageCompressor.getCompressedImage(image: image, x: min(image.size.width, image.size.height))
-            let newDimension = CGSize(width: compressedImage.size.width, height: compressedImage.size.height)
-            let compressedImgData = NSData(data: compressedImage.jpegData(compressionQuality: 0.9)!)
-            let compressedImageSizeKB: Int = Int(Double(compressedImgData.count) / 1024.0)
+            if(imageSizeKB > 1024){ // image is still greater than 1mb
+                compressedImage = ImageCompressor.getCompressedImage(image: image, x: min(image.size.width, image.size.height))
+                let newDimension = CGSize(width: compressedImage.size.width, height: compressedImage.size.height)
+                let compressedImgData = NSData(data: compressedImage.jpegData(compressionQuality: 0.9)!)
+                let compressedImageSizeKB: Int = Int(Double(compressedImgData.count) / 1024.0)
+                self.lblDimension.text = "(\(Int(previousDimension.width)), \(Int(previousDimension.height))) -> (\(Int(newDimension.width)), \(Int(newDimension.height)))"
+                // checking file size, update with smaller sized image
+                self.lblSize.text = "\(imageSizeKB) KB -> \(compressedImageSizeKB) KB"
+                let endTime = CFAbsoluteTimeGetCurrent()
+                let executionTime = round((endTime - startTime) * 100) / 100.0
+                    
+                // Label info update
+               
+                self.lblTime.text = "Execution time: \(executionTime) s"
                 
-            let endTime = CFAbsoluteTimeGetCurrent()
-            let executionTime = round((endTime - startTime) * 100) / 100.0
-                
-            // Label info update
-            self.lblDimension.text = "(\(Int(previousDimension.width)), \(Int(previousDimension.height))) -> (\(Int(newDimension.width)), \(Int(newDimension.height)))"
-            // checking file size, update with smaller sized image
-            self.lblSize.text = "\(imageSizeKB) KB -> \(compressedImageSizeKB) KB"
-            self.lblTime.text = "Execution time: \(executionTime) s"
+               
+            }else{ // compress skipped
+                self.lblDimension.text = "(\(Int(previousDimension.width)), \(Int(previousDimension.height))) -> (\(Int(previousDimension.width)), \(Int(previousDimension.height)))"
+                // checking file size, update with smaller sized image
+                self.lblSize.text = "\(imageSizeKB) KB -> \(imageSizeKB) KB"
+                self.lblTime.text = "Skipped"
+            }
             
             self.imageView.image = compressedImage
+           
         }
         
     }
